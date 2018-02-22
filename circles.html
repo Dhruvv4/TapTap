@@ -7,21 +7,23 @@
     <title>Document</title>
     <link rel="stylesheet" href="circles.css">
     <script src="paper-full.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
     
         var circles = [];
 
+        var sound = new Howl({
+            src: ['sounds/bubbles.mp3']
+        });
+          
         function onKeyDown(event) {
-            // Get the maximum size(width,height) of the browser window.
-            var maxPoint = new Point(view.size.width, view.size.height);
-            // Random point between 0 to 1 (exclusive).
-            // So it'll act as percentage
+            var maxPoint = new Point(view.size.width, view.size.height);        
             var randomPoint = Point.random();
             var point = maxPoint * randomPoint;
-
             var newCircle = new Path.Circle(point, 500);
             newCircle.fillColor = "orange";
             circles.push(newCircle);
+            sound.play();
         }
 
         function onFrame(event) {
